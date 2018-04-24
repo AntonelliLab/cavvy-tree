@@ -1,3 +1,13 @@
+# Data
+ncbi-blast-2.7.1+/
+phylogeny_files/
+phylotar/
+RAxML*
+log
+*.tre
+*.csv
+*.Rproj
+
 # History files
 .Rhistory
 .Rapp.history
