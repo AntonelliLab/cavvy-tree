@@ -1,4 +1,7 @@
 # Data
+*attempt*
+*results*
+*phylogeny_files*
 ncbi-blast-2.7.1+/
 phylogeny_files/
 phylotar/
@@ -7,6 +10,7 @@ log
 *.tre
 *.csv
 *.Rproj
+*.zip
 
 # History files
 .Rhistory
@@ -41,3 +45,4 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+.Rproj.user

@@ -55,7 +55,7 @@ inpt <- file.path('phylogeny_files', 'supermatrix.fasta')
 prttnfl <- file.path('phylogeny_files', 'partition.txt')
 system(paste0('raxmlHPC -f a -m GTRGAMMA -T 2 -# 10 -p ',
               sample(0:10000000, 1), ' -x ', sample(0:10000000, 1),
-              ' -n test1 -s ', inpt, ' -q ', prttnfl))
+              ' -n test2 -s ', inpt, ' -q ', prttnfl))
 # consensus
 system('raxmlHPC -m GTRCAT -J MR -z RAxML_bootstrap.palms -n palms_con')
 
