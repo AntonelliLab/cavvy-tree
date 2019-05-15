@@ -2,9 +2,10 @@
 *attempt*
 *results*
 *phylogeny_files*
-ncbi-blast-2.7.1+/
+bin/
 phylogeny_files/
 phylotar/
+archive/
 RAxML*
 log
 *.tre
