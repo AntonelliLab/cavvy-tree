@@ -2,14 +2,15 @@
 *attempt*
 *results*
 *phylogeny_files*
+data/restez
+data/phylotaR
 bin/
 phylogeny_files/
 phylotar/
 archive/
 RAxML*
 log
-*.tre
-*.csv
+*.csv#
 *.Rproj
 *.zip
 
