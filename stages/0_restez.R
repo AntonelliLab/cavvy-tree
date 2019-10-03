@@ -14,7 +14,7 @@ restez_path <- 'data'
 restez_path_set(filepath = restez_path)
 
 # Set up ----
-if (!check_restez) {
+if (!check_restez()) {
   db_download(preselection = gb_section)
   restez_connect()
   db_create(min_length = 150)
