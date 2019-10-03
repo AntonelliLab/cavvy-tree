@@ -3,7 +3,7 @@ library(restez)
 
 # Vars ----
 gb_section <- '16' # Rodents
-restez_path <- file.path('data', 'restez')
+restez_path <- file.path('data')
 
 # Set up ----
 if (!dir.exists(restez_path)) {
