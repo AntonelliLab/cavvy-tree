@@ -1,14 +1,20 @@
 # Libs ----
 library(restez)
 
+# Functions ----
+check_restez <- function() {
+  on.exit(restez_disconnect())
+  restez_connect()
+  restez_ready()
+}
+
 # Vars ----
 gb_section <- '16' # Rodents
-restez_path <- file.path('data')
+restez_path <- 'data'
+restez_path_set(filepath = restez_path)
 
 # Set up ----
-if (!dir.exists(restez_path)) {
-  dir.create(restez_path)
-  restez_path_set(filepath = restez_path)
+if (!check_restez) {
   db_download(preselection = gb_section)
   restez_connect()
   db_create(min_length = 150)
@@ -16,7 +22,6 @@ if (!dir.exists(restez_path)) {
 }
 
 # Status check ----
-restez_path_set(filepath = restez_path)
 restez_connect()
 restez_status()
 restez_disconnect()
