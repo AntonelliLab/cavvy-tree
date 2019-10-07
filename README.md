@@ -41,7 +41,7 @@ All stage scripts can be found in `stages/`.
 
 ### Download
 
-[Download `results.zip`](https://raw.githubusercontent.com/AntonelliLab/cavvy-tree/master/results.zip)
+[Download `results.zip`](https://github.com/AntonelliLab/cavvy-tree/raw/master/results.zip)
 
 ### Preview
 

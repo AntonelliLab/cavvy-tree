@@ -12,15 +12,16 @@ input_file <- file.path(indir, 'RAxML_bestTree.supermatrix')
 # Read in ----
 tree <- read.tree(file = input_file)
 # drop repeated tips
-to_drop <- tree$tip.label[!duplicated(sub(pattern = '_[0-9]$',
-                                          x = tree$tip.label,
-                                          replacement = ''))]
+pattern <- '_[0-9]$'
+to_drop <- tree$tip.label[duplicated(sub(pattern = pattern,
+                                         x = tree$tip.label,
+                                         replacement = ''))]
 tree <- drop.tip(phy = tree, tip = to_drop)
-tree$tip.label <- sub(pattern = '_[0-9]$', x = tree$tip.label, replacement = '')
-# # root tree
-# outgroup_tips <- tree$tip.label[grepl(pattern = outgroup_pattern,
-#                                       x = tree$tip.label, ignore.case = TRUE)]
-# tree <- root(unroot(tree), outgroup = outgroup_tips)
+tree$tip.label <- sub(pattern = pattern, x = tree$tip.label, replacement = '')
+# root tree
+outgroup_tips <- tree$tip.label[!grepl(pattern = '(Hystrix|Atherurus|Trichys)',
+                                      x = tree$tip.label, ignore.case = TRUE)]
+tree <- root(tree, outgroup = outgroup_tips, resolve.root = TRUE)
 
 # Plot ----
 png(filename = 'tree.png', units = 'px', width = 480*1.75, height = 480*1.75)
