@@ -1,5 +1,5 @@
 # Local functions ----
-indir_get <- NULL
+dataflpth_get <- indir_get <- NULL
 source(file.path('tools', 'pipeline.R'))
 
 # Library ----
@@ -23,9 +23,25 @@ outgroup_tips <- tree$tip.label[!grepl(pattern = '(Hystrix|Atherurus|Trichys)',
                                       x = tree$tip.label, ignore.case = TRUE)]
 tree <- root(tree, outgroup = outgroup_tips, resolve.root = TRUE)
 
+# Stats ----
+cavvies_tbl <- read.csv(dataflpth_get('caviomorpha.csv'),
+                        stringsAsFactors = FALSE)
+genus_presence <- vapply(X = cavvies_tbl[['Genus']], FUN = function(x) {
+  any(grepl(pattern = x, x = tree$tip.label, ignore.case = TRUE))
+  }, FUN.VALUE = logical(1))
+sum(genus_presence) == length(genus_presence)
+missing_genera <- names(genus_presence)[!genus_presence]
+
 # Plot ----
 png(filename = 'tree.png', units = 'px', width = 480*1.75, height = 480*1.75)
-plot(x = tree, no.margin = TRUE, type = 'fan')
+if (length(missing_genera) > 0) {
+  msg <- paste0('Missing genera: ', paste0(missing_genera, collapse = ', '))
+} else {
+  msg <- 'No missing genera'
+}
+par(mar = c(1, 0, 0, 0))
+plot(x = tree, type = 'fan')
+mtext(text = msg, side = 1, line = -1, cex = 0.75)
 dev.off()
 
 # Write out ----
