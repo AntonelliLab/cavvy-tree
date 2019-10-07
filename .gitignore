@@ -12,7 +12,13 @@ RAxML*
 log
 *.csv#
 *.Rproj
-*.zip
+
+# stages
+stages/1_phylotar
+stages/2_cluster
+stages/3_alignment
+stages/4_supermatrix
+stages/5_phylogeny
 
 # History files
 .Rhistory
