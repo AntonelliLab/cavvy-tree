@@ -7,17 +7,10 @@ library(ape)
 
 # Vars ----
 indir <- indir_get('5_phylogeny')
-input_file <- file.path(indir, 'RAxML_bestTree.supermatrix')
+input_file <- file.path(indir, 'low', 'RAxML_bestTree.low')
 
 # Read in ----
 tree <- read.tree(file = input_file)
-# drop repeated tips
-pattern <- '_[0-9]$'
-to_drop <- tree$tip.label[duplicated(sub(pattern = pattern,
-                                         x = tree$tip.label,
-                                         replacement = ''))]
-tree <- drop.tip(phy = tree, tip = to_drop)
-tree$tip.label <- sub(pattern = pattern, x = tree$tip.label, replacement = '')
 # root tree
 outgroup_tips <- tree$tip.label[!grepl(pattern = '(Hystrix|Atherurus|Trichys)',
                                       x = tree$tip.label, ignore.case = TRUE)]
@@ -45,13 +38,73 @@ mtext(text = msg, side = 1, line = -1, cex = 0.75)
 dev.off()
 
 # Write out ----
+readme_txt <- '
+# Cavvy-tree
+
+Results for *cavvy-tree* project: "construction of phylogenetic supermatrix"
+for select Caviomorph families.
+
+Three supermatrices are made available for different strictnesses of
+supermatrix-completeness. "low" provides the matrix with maximum species
+coverage, but lots of gaps. "high" provides minimum number of gaps but has
+fewest number of species.
+
+Matrices are provided in FASTA and PHYLIP format.
+
+phylotaR results are summarised in "clusters_summary" and "species_summary".
+
+For each matrix type a RAxML guide tree and best partition schemes according to
+PartitionFinder2 are provided.
+
+For more information visit: https://github.com/AntonelliLab/cavvy-tree
+
+## Folder structure
+
+```
+results/
+- clusters_summary.csv
+- species_summary.csv
+- - low/
+- - - RAxML_bestTree
+- - - supermatrix.fasta
+- - - supermatrix.phy
+- - - best_scheme.txt
+- - mid/
+- - - RAxML_bestTree
+- - - supermatrix.fasta
+- - - supermatrix.phy
+- - - best_scheme.txt
+- - high/
+- - - RAxML_bestTree
+- - - supermatrix.fasta
+- - - supermatrix.phy
+- - - best_scheme.txt
+- README.txt
+```
+'
+readme_txt <- paste0(readme_txt, '\n\n**Date and time**: ', '\n', Sys.time())
 if (!dir.exists('results')) {
   dir.create('results')
 }
-write.tree(phy = tree, file = file.path('results', 'guide_tree.tre'))
-sprmtrx_flpth <- file.path('stages', '4_supermatrix')
-fls <- file.path(sprmtrx_flpth, list.files(sprmtrx_flpth))
-file.copy(from = fls, to = 'results', overwrite = TRUE)
+files_to_copy <- file.path('stages', '2_cluster', c('clusters_summary.csv',
+                                                    'species_summary.csv'))
+file.copy(from = files_to_copy, to = 'results', overwrite = TRUE)
+analysis_dirs <- file.path('results', c('low', 'mid', 'high'))
+for (analysis_dir in analysis_dirs) {
+  if (!dir.exists(analysis_dir)) {
+    dir.create(analysis_dir)
+  }
+  nm <- basename(analysis_dir)
+  files_to_copy <- c(file.path(indir, nm, paste0('RAxML_bestTree.', nm)),
+                     file.path('stages', '4_supermatrix',
+                               'partitionfinder_results', nm,
+                               c('supermatrix.fasta', 'supermatrix.phy')),
+                     file.path('stages', '4_supermatrix',
+                               'partitionfinder_results', nm, 'analysis',
+                               'best_scheme.txt'))
+  file.copy(from = files_to_copy, to = analysis_dir, overwrite = TRUE)
+}
+cat(readme_txt, file = file.path('results', 'README.md'))
 
 # Compress ----
 utils::zip(zipfile = 'results.zip', files = 'results')
