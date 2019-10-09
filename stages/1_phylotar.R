@@ -21,7 +21,7 @@ ids <- cavvies_tbl[['Ids']]
 # Run ----
 outdir <- outdir_get('1_phylotar')
 setup(wd = outdir, txid = ids, overwrite = TRUE, outsider = TRUE, ncps = 2,
-      btchsz = 200, db_only = TRUE)
+      btchsz = 200, db_only = FALSE)
 run(wd = outdir)
 #restart(wd = outdir)
 
