@@ -5,6 +5,7 @@ source(file.path('tools', 'pipeline.R'))
 # Libs ----
 library(restez)
 library(phylotaR)
+outsider::verbosity_set(show_program = FALSE, show_docker = FALSE)
 
 # Restez setup ----
 restez_path_set('data')
