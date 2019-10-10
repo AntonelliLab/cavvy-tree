@@ -11,8 +11,12 @@ partition_write <- function(nbps, flpth) {
   data_block <- NULL
   for (i in seq_along(nbps)) {
     end <- nbps[[i]] + strt - 1
-    data_block <- c(data_block, paste0('gene_', gene, " = ", 
-                                       strt, "-", end, ";"))
+    data_block <- c(data_block, paste0('gene_', gene, "_pos1 = ", 
+                                       strt, "-", end, "\\3;"))
+    data_block <- c(data_block, paste0('gene_', gene, "_pos2 = ", 
+                                       strt + 1, "-", end, "\\3;"))
+    data_block <- c(data_block, paste0('gene_', gene, "_pos3 = ", 
+                                       strt + 2, "-", end, "\\3;"))
     strt <- end + 1
     gene <- gene + 1
   }

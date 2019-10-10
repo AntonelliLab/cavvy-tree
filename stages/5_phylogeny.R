@@ -47,6 +47,6 @@ for (i in seq_along(supermatrix_files)) {
   # fast analysis
   seed_n <- round(runif(n = 1, min = 1, max = 99999))
   raxml(arglist = c('-m', 'GTRGAMMA', '-s', supermatrix_file, '-p', seed_n, '-n',
-                    nm, '-T', '2', '-q', partition_file),
+                    nm, '-T', '4', '-q', partition_file),
         outdir = results_dir)
 }
