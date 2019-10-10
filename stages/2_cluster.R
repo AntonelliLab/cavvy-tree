@@ -72,6 +72,6 @@ not_dropped <- sort(unique(not_dropped))
 species_summary <- data.frame(sp = c(not_dropped, dropped),
                               kept = c(rep(1, length(not_dropped)),
                                        rep(0, length(dropped))))
-write.csv(smmry, file.path(outdir, 'species_summary.csv'))
+write.csv(species_summary, file.path(outdir, 'species_summary.csv'))
 cat(crayon::red(length(not_dropped)), ' species represented!\n', sep = '')
 
