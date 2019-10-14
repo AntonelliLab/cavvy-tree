@@ -12,7 +12,8 @@ input_file <- file.path(indir, 'low', 'RAxML_bestTree.low')
 # Read in ----
 tree <- read.tree(file = input_file)
 # root tree
-outgroup_tips <- tree$tip.label[!grepl(pattern = '(Hystrix|Atherurus|Trichys)',
+chinchilloidea_pattern <- '(Hystrix|Atherurus|Trichys|Lagidium|Chinchilla|Dinomys|Lagostomus)'
+outgroup_tips <- tree$tip.label[grepl(pattern = chinchilloidea_pattern,
                                       x = tree$tip.label, ignore.case = TRUE)]
 tree <- root(tree, outgroup = outgroup_tips, resolve.root = TRUE)
 
@@ -26,11 +27,13 @@ sum(genus_presence) == length(genus_presence)
 missing_genera <- names(genus_presence)[!genus_presence]
 
 # Plot ----
+msg <- paste0(length(tree$tip.label), ' Nspp. | ')
 png(filename = 'tree.png', units = 'px', width = 480*1.75, height = 480*1.75)
 if (length(missing_genera) > 0) {
-  msg <- paste0('Missing genera: ', paste0(missing_genera, collapse = ', '))
+  msg <- paste0(msg, 'Missing genera: ', paste0(missing_genera,
+                                                collapse = ', '))
 } else {
-  msg <- 'No missing genera'
+  msg <- paste0(msg, 'No missing genera')
 }
 par(mar = c(1, 0, 0, 0))
 plot(x = tree, type = 'fan')
