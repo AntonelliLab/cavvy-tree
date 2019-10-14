@@ -37,6 +37,11 @@ All stage scripts can be found in `stages/`.
 * [RAxML](https://cme.h-its.org/exelixis/web/software/raxml/index.html)
 * [NCBI BLAST+](https://www.ncbi.nlm.nih.gov/books/NBK537770/)
 
+## Methods
+
+Detailed method description can be found in this
+[Google Document](https://docs.google.com/document/d/1Q-5b3eSMKInqiy3cgw1JfG54VnTLr_WSFtyMBf1UXz8/edit?usp=sharing).
+
 ## Results
 
 ### Download
@@ -47,4 +52,5 @@ All stage scripts can be found in `stages/`.
 
 ![](https://raw.githubusercontent.com/AntonelliLab/cavvy-tree/master/tree.png)
 
+### Target taxon
 ![](https://upload.wikimedia.org/wikipedia/commons/f/fc/Two_Adult_Guinea_Pigs_%28cropped%29.jpg)
