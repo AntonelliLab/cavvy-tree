@@ -48,6 +48,9 @@ Detailed method description can be found in this
 
 [Download `results.zip`](https://github.com/AntonelliLab/cavvy-tree/raw/master/results.zip)
 
+(Read the `README.md` file containted in the zipped folder to learn about the
+file content.)
+
 ### Preview
 
 ![](https://raw.githubusercontent.com/AntonelliLab/cavvy-tree/master/tree.png)
